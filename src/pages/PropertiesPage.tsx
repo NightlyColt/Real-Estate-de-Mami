@@ -5,6 +5,8 @@ import { SEO } from '../components/SEO';
 import { PropertyCard } from '../components/PropertyCard';
 import { PROPERTIES } from '../constants';
 
+import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
+
 export const PropertiesPage: React.FC = () => {
   const [filter, setFilter] = useState('Todos');
   const types = ['Todos', 'Apartamento', 'Casa', 'Villa'];
@@ -21,16 +23,16 @@ export const PropertiesPage: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto">
-        <header className="mb-16 space-y-6 text-center">
+        <FadeIn direction="down" className="mb-16 space-y-6 text-center">
           <span className="text-brand-accent font-bold uppercase tracking-[0.3em] text-xs">Catálogo Exclusivo</span>
           <h1 className="text-5xl md:text-6xl font-bold text-brand-dark">Propiedades Disponibles</h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
             Encuentra la propiedad que mejor se adapte a tu estilo de vida y objetivos de inversión.
           </p>
-        </header>
+        </FadeIn>
 
         {/* Filters & Search */}
-        <div className="bg-white p-6 rounded-3xl shadow-sm border border-brand-secondary/20 mb-12 flex flex-col lg:flex-row gap-6 items-center justify-between">
+        <FadeIn delay={0.2} className="bg-white p-6 rounded-3xl shadow-sm border border-brand-secondary/20 mb-12 flex flex-col lg:flex-row gap-6 items-center justify-between">
           <div className="flex flex-wrap gap-2 justify-center">
             {types.map((type) => (
               <button
@@ -60,14 +62,16 @@ export const PropertiesPage: React.FC = () => {
             <SlidersHorizontal size={18} />
             Más Filtros
           </button>
-        </div>
+        </FadeIn>
 
         {/* Results Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProperties.map((property, i) => (
-            <PropertyCard key={property.id} property={property} index={i} />
+            <StaggerItem key={property.id}>
+              <PropertyCard property={property} index={i} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {filteredProperties.length === 0 && (
           <div className="text-center py-20">

@@ -40,14 +40,20 @@ export const Navbar: React.FC = () => {
               key={item.path}
               to={item.path}
               className={cn(
-                'text-sm font-medium transition-colors hover:text-brand-accent',
+                'text-sm font-medium transition-all hover:text-brand-accent relative group',
                 location.pathname === item.path ? 'text-brand-accent' : 'text-brand-dark'
               )}
             >
               {item.label}
+              <span className={cn(
+                "absolute -bottom-1 left-0 h-0.5 bg-brand-accent transition-all duration-300",
+                location.pathname === item.path ? "w-full" : "w-0 group-hover:w-full"
+              )} />
             </Link>
           ))}
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="https://wa.me/18090000000"
             target="_blank"
             rel="noopener noreferrer"
@@ -55,7 +61,7 @@ export const Navbar: React.FC = () => {
           >
             <MessageCircle size={18} />
             WhatsApp
-          </a>
+          </motion.a>
         </div>
 
         {/* Mobile Toggle */}

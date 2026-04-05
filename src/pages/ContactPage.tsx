@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, MessageCircle, Send, Instagram, Facebook, Linkedin } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
+import { FadeIn, StaggerContainer, StaggerItem } from '../components/Animations';
+
 export const ContactPage: React.FC = () => {
   return (
     <div className="pt-32 pb-24 px-6">
@@ -12,17 +14,17 @@ export const ContactPage: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto">
-        <header className="mb-20 text-center space-y-6">
+        <FadeIn direction="down" className="mb-20 text-center space-y-6">
           <span className="text-brand-accent font-bold uppercase tracking-[0.3em] text-xs">Hablemos</span>
           <h1 className="text-5xl md:text-6xl font-bold text-brand-dark">¿Cómo puedo ayudarte?</h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
             Estoy a solo un mensaje de distancia. Ya sea que busques comprar, vender o invertir, estoy lista para asesorarte.
           </p>
-        </header>
+        </FadeIn>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Info */}
-          <div className="space-y-12">
+          <StaggerContainer className="space-y-12">
             <div className="grid gap-8">
               {[
                 {
@@ -50,14 +52,10 @@ export const ContactPage: React.FC = () => {
                   link: '#'
                 }
               ].map((item, i) => (
-                <motion.a
+                <StaggerItem
                   key={i}
-                  href={item.link}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-6 p-6 rounded-3xl bg-white border border-brand-secondary/20 hover:border-brand-accent transition-all group"
+                  direction="left"
+                  className="flex items-center gap-6 p-6 rounded-3xl bg-white border border-brand-secondary/20 hover:border-brand-accent transition-all group cursor-pointer"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-brand-primary flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all">
                     <item.icon size={28} />
@@ -66,33 +64,30 @@ export const ContactPage: React.FC = () => {
                     <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{item.title}</h4>
                     <p className="text-xl font-bold text-brand-dark">{item.value}</p>
                   </div>
-                </motion.a>
+                </StaggerItem>
               ))}
             </div>
 
-            <div className="space-y-6">
+            <FadeIn delay={0.4} className="space-y-6">
               <h4 className="text-xl font-bold text-brand-dark">Sígueme en redes sociales</h4>
               <div className="flex gap-4">
                 {[Instagram, Facebook, Linkedin].map((Icon, i) => (
-                  <a
+                  <motion.a
                     key={i}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
                     href="#"
                     className="w-12 h-12 rounded-2xl border border-brand-secondary/30 flex items-center justify-center text-brand-dark hover:bg-brand-dark hover:text-white transition-all"
                   >
                     <Icon size={24} />
-                  </a>
+                  </motion.a>
                 ))}
               </div>
-            </div>
-          </div>
+            </FadeIn>
+          </StaggerContainer>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="bg-brand-dark p-10 md:p-16 rounded-[3rem] text-white shadow-2xl"
-          >
+          <FadeIn direction="right" className="bg-brand-dark p-10 md:p-16 rounded-[3rem] text-white shadow-2xl">
             <h3 className="text-3xl font-bold mb-8">Envíanos un mensaje</h3>
             <form className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -129,12 +124,16 @@ export const ContactPage: React.FC = () => {
                   placeholder="¿En qué puedo ayudarte?"
                 />
               </div>
-              <button className="w-full bg-brand-accent text-brand-dark font-bold py-5 rounded-2xl text-lg flex items-center justify-center gap-2 hover:bg-brand-accent/90 transition-all">
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-brand-accent text-brand-dark font-bold py-5 rounded-2xl text-lg flex items-center justify-center gap-2 hover:bg-brand-accent/90 transition-all"
+              >
                 Enviar Mensaje
                 <Send size={20} />
-              </button>
+              </motion.button>
             </form>
-          </motion.div>
+          </FadeIn>
         </div>
 
         {/* Map Placeholder */}
